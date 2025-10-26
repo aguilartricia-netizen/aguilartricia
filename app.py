@@ -2,23 +2,23 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Home route
+# ---------------- Home Route ----------------
 @app.route('/')
 def home():
     return "Welcome to the Student Management API!"
 
-# Example student data
+# ---------------- Example Data ----------------
 students = [
     {"id": 1, "name": "Tricia Aguilar", "grade": 10, "section": "Zechariah"},
     {"id": 2, "name": "John Cruz", "grade": 11, "section": "Genesis"}
 ]
 
-# Get all students
+# ---------------- Get All Students ----------------
 @app.route('/students', methods=['GET'])
 def get_students():
     return jsonify(students)
 
-# Get one student
+# ---------------- Get One Student ----------------
 @app.route('/students/<int:id>', methods=['GET'])
 def get_student(id):
     for s in students:
@@ -26,7 +26,7 @@ def get_student(id):
             return jsonify(s)
     return jsonify({"error": "Student not found"}), 404
 
-# Add a student
+# ---------------- Add a Student ----------------
 @app.route('/students', methods=['POST'])
 def add_student():
     data = request.get_json()
@@ -39,7 +39,7 @@ def add_student():
     students.append(new_student)
     return jsonify({"message": "Student added successfully!", "student": new_student}), 201
 
-# Update a student
+# ---------------- Update a Student ----------------
 @app.route('/students/<int:id>', methods=['PUT'])
 def update_student(id):
     data = request.get_json()
@@ -51,7 +51,7 @@ def update_student(id):
             return jsonify({"message": "Student updated successfully!", "student": s})
     return jsonify({"error": "Student not found"}), 404
 
-# Delete a student
+# ---------------- Delete a Student ----------------
 @app.route('/students/<int:id>', methods=['DELETE'])
 def delete_student(id):
     global students
