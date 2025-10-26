@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Student Management System</h1>
+
+    <form id="studentForm">
+      <input type="text" id="name" placeholder="Student Name" required>
+      <input type="number" id="grade" placeholder="Grade" required>
+      <input type="text" id="section" placeholder="Section" required>
+      <button type="submit">Add Student</button>
+    </form>
+
+    <h2>📋 Student List</h2>
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Section</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchStudents() {
+      const res = await fetch('/api/students');
+      const students = await res.json();
+      const tableBody = document.querySelector('#studentTable tbody');
+      tableBody.innerHTML = '';
+      students.forEach(s => {
+        tableBody.innerHTML += `
+          <tr>
+            <td>${s.id}</td>
+            <td>${s.name}</td>
+            <td>${s.grade}</td>
+            <td>${s.section}</td>
+            <td><button onclick="deleteStudent(${s.id})">Delete</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById('studentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const grade = document.getElementById('grade').value;
+      const section = document.getElementById('section').value;
+
+      await fetch('/api/students', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, grade, section })
+      });
+
+      e.target.reset();
+      fetchStudents();
+    });
+
+    async function deleteStudent(id) {
+      await fetch(`/api/students/${id}`, { method: 'DELETE' });
+      fetchStudents();
+    }
+
+    fetchStudents();
+  </script>
+</body>
+</html>
