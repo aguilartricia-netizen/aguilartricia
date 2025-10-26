@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Management System</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p style="color:{% if category=='success' %}green{% elif category=='danger' %}red{% else %}orange{% endif %};">
+            {{ message }}
+          </p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('add_student') }}">➕ Add Student</a>
+
+    <table>
+      <tr>
+        <th>ID</th><th>Name</th><th>Age</th><th>Grade</th><th>Section</th><th>Action</th>
+      </tr>
+      {% for s in students %}
+      <tr>
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+        <td>{{ s[3] }}</td>
+        <td>{{ s[4] }}</td>
+        <td>
+          <a href="{{ url_for('update_student', id=s[0]) }}">✏️ Edit</a> |
+          <a href="{{ url_for('delete_student', id=s[0]) }}" onclick="return confirm('Are you sure?')">🗑 Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>
