@@ -1,6 +1,6 @@
 /* style.css */
 
-/* Global styles */
+/* Base design */
 body {
   font-family: "Poppins", sans-serif;
   background-color: #d6ebff; /* light blue background */
@@ -10,7 +10,6 @@ body {
   justify-content: center;
 }
 
-/* Container */
 .container {
   width: 100%;
   max-width: 900px;
@@ -20,7 +19,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Title */
 h1 {
   text-align: center;
   color: #2c3e50;
@@ -31,21 +29,21 @@ h1 {
 form {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 input {
-  width: 150px;
-  padding: 8px;
+  width: 140px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
 }
 
 button {
-  padding: 8px 12px;
+  padding: 6px 10px;
   background-color: #3498db;
   color: white;
   border: none;
@@ -80,7 +78,7 @@ th {
 td button {
   background-color: #e74c3c;
   border: none;
-  padding: 6px 10px;
+  padding: 5px 8px;
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -90,7 +88,7 @@ td button:hover {
   background-color: #c0392b;
 }
 
-/* Responsive styles */
+/* Responsive fixes */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -101,42 +99,21 @@ td button:hover {
   }
 
   form {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  input {
-    width: 110px; /* smaller boxes */
-    padding: 6px;
-    font-size: 13px;
-  }
-
-  button {
-    width: auto;
-    padding: 8px 12px;
-  }
-
-  table {
-    display: block;
+    flex-wrap: nowrap;
     overflow-x: auto;
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.4rem;
+    justify-content: flex-start;
   }
 
   input {
     width: 100px;
+    padding: 4px;
     font-size: 12px;
-    padding: 6px;
   }
 
   button {
-    padding: 6px 10px;
-    font-size: 13px;
+    padding: 5px 8px;
+    font-size: 12px;
+    flex-shrink: 0;
   }
 
   table {
@@ -144,6 +121,42 @@ td button:hover {
   }
 
   td button {
-    padding: 5px 8px;
+    padding: 4px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  form {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  input {
+    width: 85px;
+    padding: 3px;
+    font-size: 11px;
+  }
+
+  button {
+    padding: 4px 6px;
+    font-size: 11px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  td button {
+    padding: 3px 5px;
+    font-size: 11px;
   }
 }
