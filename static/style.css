@@ -1,9 +1,18 @@
 body {
   font-family: "Poppins", sans-serif;
-  background: url("ISUFST.jpg") no-repeat center center fixe;
+  background: url("../images/ISUFST.jpg") no-repeat center center fixed;
   background-size: cover;
   margin: 0;
   padding: 20px;
+}
+
+/* Background overlay for better readability */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: -1;
 }
 
 .container {
@@ -18,10 +27,12 @@ body {
 h1 {
   text-align: center;
   color: #2c3e50;
+  font-size: 1.8em;
 }
 
 form {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
   margin-bottom: 20px;
@@ -31,6 +42,8 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  flex: 1 1 200px;
+  min-width: 150px;
 }
 
 button {
@@ -40,6 +53,7 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -49,6 +63,7 @@ button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.95em;
 }
 
 table th, table td {
@@ -75,5 +90,34 @@ td button:hover {
   background-color: #c0392b;
 }
 
+/* 📱 RESPONSIVE DESIGN FOR PHONES */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
 
+  .container {
+    padding: 15px;
+  }
 
+  h1 {
+    font-size: 1.4em;
+  }
+
+  form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input, button {
+    width: 100%;
+  }
+
+  table {
+    font-size: 0.85em;
+  }
+
+  table th, table td {
+    padding: 6px;
+  }
+}
