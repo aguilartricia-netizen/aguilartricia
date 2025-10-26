@@ -1,90 +1,63 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import sqlite3
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
-app.secret_key = "secret123"  # for flash messages
 
-
-# ------------------ DATABASE SETUP ------------------
-def init_db():
-    conn = sqlite3.connect('students.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS students (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    age INTEGER,
-                    grade TEXT,
-                    section TEXT
-                )''')
-    conn.commit()
-    conn.close()
-
-
-# ------------------ ROUTES ------------------
+# Home route
 @app.route('/')
-def index():
-    conn = sqlite3.connect('students.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM students")
-    students = c.fetchall()
-    conn.close()
-    return render_template('index.html', students=students)
+def home():
+    return "Welcome to the Student Management API!"
 
+# Example student data
+students = [
+    {"id": 1, "name": "Tricia Aguilar", "grade": 10, "section": "Zechariah"},
+    {"id": 2, "name": "John Cruz", "grade": 11, "section": "Genesis"}
+]
 
-@app.route('/add', methods=['GET', 'POST'])
+# Get all students
+@app.route('/students', methods=['GET'])
+def get_students():
+    return jsonify(students)
+
+# Get one student
+@app.route('/students/<int:id>', methods=['GET'])
+def get_student(id):
+    for s in students:
+        if s['id'] == id:
+            return jsonify(s)
+    return jsonify({"error": "Student not found"}), 404
+
+# Add a student
+@app.route('/students', methods=['POST'])
 def add_student():
-    if request.method == 'POST':
-        name = request.form['name']
-        age = request.form['age']
-        grade = request.form['grade']
-        section = request.form['section']
+    data = request.get_json()
+    new_student = {
+        "id": len(students) + 1,
+        "name": data.get("name"),
+        "grade": data.get("grade"),
+        "section": data.get("section")
+    }
+    students.append(new_student)
+    return jsonify({"message": "Student added successfully!", "student": new_student}), 201
 
-        conn = sqlite3.connect('students.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO students (name, age, grade, section) VALUES (?, ?, ?, ?)",
-                  (name, age, grade, section))
-        conn.commit()
-        conn.close()
-        flash("Student added successfully!", "success")
-        return redirect(url_for('index'))
-
-    return render_template('add_student.html')
-
-
-@app.route('/delete/<int:id>')
-def delete_student(id):
-    conn = sqlite3.connect('students.db')
-    c = conn.cursor()
-    c.execute("DELETE FROM students WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
-    flash("Student deleted successfully!", "danger")
-    return redirect(url_for('index'))
-
-
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
+# Update a student
+@app.route('/students/<int:id>', methods=['PUT'])
 def update_student(id):
-    conn = sqlite3.connect('students.db')
-    c = conn.cursor()
+    data = request.get_json()
+    for s in students:
+        if s['id'] == id:
+            s['name'] = data.get('name', s['name'])
+            s['grade'] = data.get('grade', s['grade'])
+            s['section'] = data.get('section', s['section'])
+            return jsonify({"message": "Student updated successfully!", "student": s})
+    return jsonify({"error": "Student not found"}), 404
 
-    if request.method == 'POST':
-        name = request.form['name']
-        age = request.form['age']
-        grade = request.form['grade']
-        section = request.form['section']
-        c.execute("UPDATE students SET name=?, age=?, grade=?, section=? WHERE id=?",
-                  (name, age, grade, section, id))
-        conn.commit()
-        conn.close()
-        flash("Student updated successfully!", "info")
-        return redirect(url_for('index'))
-
-    c.execute("SELECT * FROM students WHERE id=?", (id,))
-    student = c.fetchone()
-    conn.close()
-    return render_template('add_student.html', student=student)
+# Delete a student
+@app.route('/students/<int:id>', methods=['DELETE'])
+def delete_student(id):
+    global students
+    students = [s for s in students if s['id'] != id]
+    return jsonify({"message": "Student deleted successfully!"})
 
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
