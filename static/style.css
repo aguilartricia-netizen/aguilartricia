@@ -6,14 +6,16 @@ body {
   background-color: #d6ebff; /* light blue background */
   margin: 0;
   padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Container */
 .container {
-  max-width: 900px;
-  margin: auto;
+  width: 100%;
+  max-width: 600px;
   background: white;
-  padding: 25px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -22,6 +24,7 @@ body {
 h1 {
   text-align: center;
   color: #2c3e50;
+  font-size: 1.6rem;
 }
 
 /* Form layout */
@@ -33,15 +36,13 @@ form {
   margin-bottom: 20px;
 }
 
-/* Inputs */
 input {
-  flex: 1 1 200px;
+  flex: 1 1 150px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-/* Buttons */
 button {
   padding: 10px 15px;
   background-color: #3498db;
@@ -55,14 +56,15 @@ button:hover {
   background-color: #2980b9;
 }
 
-/* Table */
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
-table th,
-table td {
+th, td {
   text-align: center;
   border: 1px solid #ccc;
   padding: 8px;
@@ -73,7 +75,6 @@ th {
   color: white;
 }
 
-/* Delete button inside table */
 td button {
   background-color: #e74c3c;
   border: none;
@@ -87,8 +88,8 @@ td button:hover {
   background-color: #c0392b;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+/* Responsive styles */
+@media (max-width: 768px) {
   body {
     padding: 10px;
   }
@@ -102,12 +103,27 @@ td button:hover {
     align-items: stretch;
   }
 
-  input,
-  button {
+  input, button {
     width: 100%;
   }
 
   table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  table {
     font-size: 14px;
+  }
+
+  td button {
+    padding: 5px 8px;
   }
 }
