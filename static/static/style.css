@@ -1,35 +1,34 @@
+/* 🌸 Base layout */
 body {
   font-family: "Poppins", sans-serif;
-  background: url("../images/ISUFST.jpg") no-repeat center center fixed;
-  background-size: cover;
+  background-color: #d9eaf7; /* Light blue background */
   margin: 0;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
-/* Background overlay for better readability */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: -1;
-}
-
+/* 🌿 Container */
 .container {
+  width: 100%;
   max-width: 900px;
-  margin: auto;
-  background: white;
+  background: #ffffff;
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* ✨ Title */
 h1 {
   text-align: center;
   color: #2c3e50;
-  font-size: 1.8em;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
 }
 
+/* 🧾 Form */
 form {
   display: flex;
   flex-wrap: wrap;
@@ -39,11 +38,12 @@ form {
 }
 
 input {
+  flex: 1;
+  min-width: 120px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  flex: 1 1 200px;
-  min-width: 150px;
+  font-size: 14px;
 }
 
 button {
@@ -53,22 +53,28 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 14px;
+  transition: background 0.3s;
 }
 
 button:hover {
   background-color: #2980b9;
 }
 
+/* 📋 Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95em;
+  font-size: 14px;
 }
 
-table th, table td {
-  text-align: center;
+th, td {
   border: 1px solid #ccc;
+  text-align: center;
   padding: 8px;
 }
 
@@ -84,24 +90,26 @@ td button {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 td button:hover {
   background-color: #c0392b;
 }
 
-/* 📱 RESPONSIVE DESIGN FOR PHONES */
-@media (max-width: 600px) {
+/* 📱 Mobile Responsive Design */
+@media (max-width: 768px) {
   body {
     padding: 10px;
   }
 
   .container {
     padding: 15px;
+    max-width: 100%;
   }
 
   h1 {
-    font-size: 1.4em;
+    font-size: 1.5rem;
   }
 
   form {
@@ -111,13 +119,32 @@ td button:hover {
 
   input, button {
     width: 100%;
+    font-size: 15px;
+    padding: 12px;
   }
 
   table {
-    font-size: 0.85em;
+    font-size: 13px;
+  }
+}
+
+/* 📱 Smaller Screens (Phones) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
   }
 
-  table th, table td {
+  .container {
+    padding: 10px;
+  }
+
+  th, td {
     padding: 6px;
+    font-size: 12px;
+  }
+
+  td button {
+    font-size: 11px;
+    padding: 5px 8px;
   }
 }
