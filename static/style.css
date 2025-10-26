@@ -150,6 +150,20 @@ td button:hover {
     padding: 4px 6px;
     font-size: 11px;
   }
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 15px;
+  background-color: #3498db;
+  color: white;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+footer p {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
 
   table {
     font-size: 12px;
@@ -159,4 +173,7 @@ td button:hover {
     padding: 3px 5px;
     font-size: 11px;
   }
+
+
 }
+
