@@ -1,37 +1,47 @@
+/* style.css */
+
+/* Global styles */
 body {
   font-family: "Poppins", sans-serif;
-  background: #f0f4f8;
+  background-color: #d6ebff; /* light blue background */
   margin: 0;
   padding: 20px;
 }
 
+/* Container */
 .container {
   max-width: 900px;
   margin: auto;
   background: white;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Title */
 h1 {
   text-align: center;
   color: #2c3e50;
 }
 
+/* Form layout */
 form {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
   margin-bottom: 20px;
 }
 
+/* Inputs */
 input {
+  flex: 1 1 200px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
+/* Buttons */
 button {
   padding: 10px 15px;
   background-color: #3498db;
@@ -45,12 +55,14 @@ button:hover {
   background-color: #2980b9;
 }
 
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table th, table td {
+table th,
+table td {
   text-align: center;
   border: 1px solid #ccc;
   padding: 8px;
@@ -61,6 +73,7 @@ th {
   color: white;
 }
 
+/* Delete button inside table */
 td button {
   background-color: #e74c3c;
   border: none;
@@ -74,3 +87,27 @@ td button:hover {
   background-color: #c0392b;
 }
 
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
